@@ -178,6 +178,8 @@ points(population_1_2$time, population_1_2$Population1_F2,
        bg = "slateblue",   
        cex = 0.8)         
 lines(t_vals, preds, col = "brown1", lwd = 2)
+mtext("A", side = 3, line = 1, at = par("usr")[1], adj = 0, cex = 1.5, font = 2)
+
 plot(population_1_2$time, population_1_2$Fst,
      col = "slateblue",   
      pch = 21,            
@@ -191,3 +193,4 @@ points(population_1_2$time, population_1_2$Fst,
        bg = "slateblue",    
        cex = 0.8)         
 lines(t_vals_st, preds_st, col = "brown1", lwd = 2)
+mtext("B", side = 3, line = 1, at = par("usr")[1], adj = 0, cex = 1.5, font = 2)
