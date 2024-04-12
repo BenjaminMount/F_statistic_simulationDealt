@@ -43,16 +43,18 @@ repeat_simulation_2 <- function(N, num_simulations, K, a1, b1, m_ij, p0, p3, num
     all_freqs[, sim] <- F_matrix[1, ] / (2 * N)  
     F2t[, sim] <- (all_freqs[, sim] - p0) ^2
   }
-  return(F2t)
+  return(list(all_freqs = all_freqs, F2t = F2t))
 }
 
-set.seed(2)
+set.seed(123)
 num_simulations <- 1000  
 num_generations <- 500  
-F2t_matrix <- repeat_simulation_2(N, num_simulations, 3, a1, b1, m_ij, p0, p3, num_generations)
+
+results <- repeat_simulation_2(N, num_simulations, 3, a1, b1, m_ij, p0, p3, num_generations)
+all_freqs_matrix <- results$all_freqs
+F2t_matrix <- results$F2t
 
 F2_values <- rowMeans(F2t_matrix)
-
 plot(1:num_generations, F2_values, type = 'l', xlab = "Generation", ylab = "Mean F2", lwd = 2,
      main = "Mean F2 over Generations")
 
