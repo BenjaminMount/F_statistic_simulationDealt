@@ -26,17 +26,19 @@ F_simulation_modified <- function(N, K, a1, b1, m_ij, p0, p3, num_generations) {
 repeat_simulation_2_modified <- function(N, num_simulations, K, a1, b1, m_ij, p0, p3, num_generations) {
   all_diffs_up <- matrix(0, nrow = num_generations, ncol = num_simulations)
   all_diffs_down <- matrix(0, nrow = num_generations, ncol = num_simulations)
+  all_p1_freqs <- matrix(0, nrow = num_generations, ncol = num_simulations)  
+  all_p2_freqs <- matrix(0, nrow = num_generations, ncol = num_simulations)  
   for (sim in 1:num_simulations) {
     F_matrix <- F_simulation_modified(N, K, a1, b1, m_ij, p0, p3, num_generations)
     p1_freqs <- F_matrix[1, ] / (2 * N)
     p2_freqs <- F_matrix[2, ] / (2 * N)
-    
+    all_p1_freqs[, sim] <- p1_freqs
+    all_p2_freqs[, sim] <- p2_freqs
     all_diffs_up[, sim] <- (p1_freqs - p2_freqs)^2
     all_diffs_down[, sim] <- (p1_freqs + p2_freqs - 2*p1_freqs*p2_freqs)
   }
-
   mean_diffs <- rowMeans(all_diffs_up) / rowMeans(all_diffs_down)
-  return(mean_diffs)
+  return(list(mean_diffs = mean_diffs, all_p1_freqs = all_p1_freqs, all_p2_freqs = all_p2_freqs))
 }
 
 N <- 1000  
@@ -52,7 +54,10 @@ p3 <- 0.5
 num_generations <- 600
 num_simulations <- 2000  
 set.seed(2)
-mean_diffs <- repeat_simulation_2_modified(N, num_simulations, 3, a1, b1, m_ij, p0, p3, num_generations)
+results <- repeat_simulation_2_modified(N, num_simulations, 3, a1, b1, m_ij, p0, p3, num_generations)
+mean_diffs <- results$mean_diffs
+all_p1_freqs <- results$all_p1_freqs
+all_p2_freqs <- results$all_p2_freqs
 generation_time2 <- 1:500
 mean_diffs2 <- mean_diffs[1:500]
 loess_fit2 <- loess(mean_diffs2 ~ generation_time2, span = 0.28)  
