@@ -41,7 +41,7 @@ repeat_simulation_2_modified <- function(N, num_simulations, K, a1, b1, m_ij, p0
   return(list(mean_diffs = mean_diffs, all_p1_freqs = all_p1_freqs, all_p2_freqs = all_p2_freqs))
 }
 
-N <- 1000  
+N <- 100
 a1 <- 0.0003  
 b1 <- 0.0002  
 m_ij <- matrix(0.005, nrow = 3, ncol = 3)
