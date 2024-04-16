@@ -40,7 +40,7 @@ repeat_simulation_2 <- function(N, num_simulations, K, a1, b1, m_ij, p0, p3, num
   F2t <- matrix(0, nrow = num_generations, ncol = num_simulations) 
   for (sim in 1:num_simulations) {
     F_matrix <- F_simulation_modified(N, K, a1, b1, m_ij, p0, p3, num_generations)
-    all_freqs[, sim] <- F_matrix[1, ] / (2 * N)  
+    all_freqs[, sim] <- F_matrix[1, ] 
     F2t[, sim] <- (all_freqs[, sim] - p0) ^2
   }
   return(list(all_freqs = all_freqs, F2t = F2t))
