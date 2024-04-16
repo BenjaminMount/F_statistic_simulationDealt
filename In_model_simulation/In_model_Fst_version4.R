@@ -30,8 +30,8 @@ repeat_simulation_2_modified <- function(N, num_simulations, K, a1, b1, m_ij, p0
   all_p2_freqs <- matrix(0, nrow = num_generations, ncol = num_simulations)  
   for (sim in 1:num_simulations) {
     F_matrix <- F_simulation_modified(N, K, a1, b1, m_ij, p0, p3, num_generations)
-    p1_freqs <- F_matrix[1, ] / (2 * N)
-    p2_freqs <- F_matrix[2, ] / (2 * N)
+    p1_freqs <- F_matrix[1, ] 
+    p2_freqs <- F_matrix[2, ] 
     all_p1_freqs[, sim] <- p1_freqs
     all_p2_freqs[, sim] <- p2_freqs
     all_diffs_up[, sim] <- (p1_freqs - p2_freqs)^2
